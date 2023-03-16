@@ -3,10 +3,116 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+
         xmlns:local="clr-namespace:RDVapp"
         mc:Ignorable="d"
         Title="RDVapp" Height="450" Width="800">
     <Grid>
-        <TextBlock Text="Hello, world!" />
+        <TabControl>
+            <TabItem Header="Create User">
+                <Grid Margin="-2,0,2,0">
+                    <Label Content="User ID:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="UserIdTextBox" HorizontalAlignment="Left" Height="23" Margin="120,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="First Name:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="FirstNameTextBox" HorizontalAlignment="Left" Height="23" Margin="120,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Last Name:" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="LastNameTextBox" HorizontalAlignment="Left" Height="23" Margin="120,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Email:" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="23" Margin="120,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Availability day:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Lundi :" HorizontalAlignment="Left" Margin="175,150,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Mardi:" HorizontalAlignment="Left" Margin="295,150,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Mercredi" HorizontalAlignment="Left" Margin="450,150,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Jeudi" HorizontalAlignment="Left" Margin="606,150,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Vendredi" HorizontalAlignment="Left" Margin="712,150,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Availability Start Time:" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityStartTimePickerLundi" HorizontalAlignment="Left" Height="23" Margin="156,190,0,0" VerticalAlignment="Top" Width="84"/>
+
+                    <wpfToolkit:TimePicker x:Name="AvailabilityStartTimePickerMardi" HorizontalAlignment="Left" Height="23" Margin="275,190,0,0" VerticalAlignment="Top" Width="84"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityStartTimePickerMercredi" HorizontalAlignment="Left" Height="23" Margin="450,190,0,0" VerticalAlignment="Top" Width="84"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityStartTimePickerJeudi" HorizontalAlignment="Left" Height="23" Margin="583,190,0,0" VerticalAlignment="Top" Width="84"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityStartTimePickerVendredi" HorizontalAlignment="Left" Height="23" Margin="700,190,0,0" VerticalAlignment="Top" Width="84"/>
+
+                    <Label Content="Availability End Time:" HorizontalAlignment="Left" Margin="12,210,0,0" VerticalAlignment="Top"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityEndTimePickerLundi" HorizontalAlignment="Left" Height="23" Margin="156,218,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.052,0.726"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityEndTimePickerMardi" HorizontalAlignment="Left" Height="23" Margin="275,218,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.052,0.726"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityEndTimePickerMercredi" HorizontalAlignment="Left" Height="23" Margin="450,218,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.052,0.726"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityEndTimePickerJeudi" HorizontalAlignment="Left" Height="23" Margin="583,218,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.052,0.726"/>
+                    <wpfToolkit:TimePicker x:Name="AvailabilityEndTimePickerVendredi" HorizontalAlignment="Left" Height="23" Margin="700,218,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.052,0.726"/>
+
+                    <Button x:Name="CreateUserButton" Content="Create User" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" Width="100" />
+                    <DataGrid IsReadOnly="True" x:Name="dataGrid_users"  Margin="-10,287,0,0" >
+
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FFBCBCCE"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="BorderThickness" Value="0,0,1,2"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="FontSize" Value="18"/>
+
+
+                            </Style>
+                        </DataGrid.Resources>
+
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Schedule Appointment">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="21*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="82*"/>
+                        <ColumnDefinition Width="18*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="22*"/>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="141*"/>
+                        <ColumnDefinition Width="455*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Select Date :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4"/>
+                    <DatePicker x:Name="AppointmentDatePicker" HorizontalAlignment="Left" Height="23" Margin="69,10,0,0" VerticalAlignment="Top" Width="120"  Grid.Column="3" Grid.ColumnSpan="6"/>
+
+                    <Label Content="Select Time start:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4"/>
+                    <wpfToolkit:TimePicker x:Name="AppointmentTimeStartPicker" HorizontalAlignment="Left" Height="23" Margin="69,45,0,0" VerticalAlignment="Top" Width="120"  Grid.Column="3" Grid.ColumnSpan="6"/>
+                    <Label Content="Select Time end" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4"/>
+                    <wpfToolkit:TimePicker x:Name="AppointmentTimeEndPicker" HorizontalAlignment="Left" Height="23" Margin="69,80,0,0" VerticalAlignment="Top" Width="120" Grid.Column="3" Grid.ColumnSpan="6"/>
+
+
+                    <Label Content="Select User:" HorizontalAlignment="Left" Margin="14,124,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4"/>
+                    <ListBox Name="UserComboBox"  HorizontalAlignment="Left" Height="23" Margin="69,124,0,0" VerticalAlignment="Top" Width="120" Grid.Column="3" RenderTransformOrigin="0.491,-0.945" Grid.ColumnSpan="6"/>
+
+                    <Button x:Name="ScheduleAppointmentButton" Content="Schedule Appointment" HorizontalAlignment="Center" Margin="0,171,0,0" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="5" RenderTransformOrigin="0.457,3.014"/>
+
+                    <TextBox  x:Name="DeleteUserByIdInput" HorizontalAlignment="Left" Margin="330,64,0,0" VerticalAlignment="Top" Grid.Column="9" Height="23" Width="58"/>
+                    <Button x:Name="DeleteUserById" Content="DeleteUserById" HorizontalAlignment="Left" Margin="107,67,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.457,3.014" Grid.Column="9"/>
+                    <TextBox  x:Name="DeleteAppointementByIdInput" HorizontalAlignment="Left" Margin="330,30,0,0" VerticalAlignment="Top" Grid.Column="9" Height="20" Width="58"/>
+                    <Button x:Name="DeleteAppointementById" Content="DeleteAppointmentById" HorizontalAlignment="Left" Margin="107,30,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.457,3.014" Grid.Column="9"/>
+
+                    <DataGrid IsReadOnly="True" x:Name="dataGrid_appointements"  Margin="0,217,0,70" Grid.ColumnSpan="10" >
+
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FFBCBCCE"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="BorderThickness" Value="0,0,1,2"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="FontSize" Value="18"/>
+                            </Style>
+                        </DataGrid.Resources>
+
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
+
 </Window>
