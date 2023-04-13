@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDVapp", "RDVapp\RDVapp.csproj", "{82C61792-04C0-4F95-A530-72BA34507E56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject4", "TestProject4\TestProject4.csproj", "{A79CFB40-F539-4148-9845-7981B339AB88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{82C61792-04C0-4F95-A530-72BA34507E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C61792-04C0-4F95-A530-72BA34507E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C61792-04C0-4F95-A530-72BA34507E56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A79CFB40-F539-4148-9845-7981B339AB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A79CFB40-F539-4148-9845-7981B339AB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A79CFB40-F539-4148-9845-7981B339AB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A79CFB40-F539-4148-9845-7981B339AB88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

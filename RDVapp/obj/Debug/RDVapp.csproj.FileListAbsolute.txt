@@ -33,3 +33,5 @@ C:\RDVapp\RDVapp\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\RDVapp\RDVapp\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\RDVapp\RDVapp\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\RDVapp\RDVapp\obj\Debug\RDVapp.csproj.CopyComplete
+C:\RDVapp\RDVapp\bin\Debug\System.Data.SqlClient.dll
+C:\RDVapp\RDVapp\bin\Debug\System.Data.SqlClient.xml
