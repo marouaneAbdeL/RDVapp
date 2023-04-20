@@ -6,7 +6,7 @@ namespace TestProject4
 {
     public class Tests
     {
-        private string _connectionString = "Data Source=(local);Initial Catalog=RDVAPP;Integrated Security=True";
+        private string _connectionString = "Data Source=LAPTOP-LJ9438PF\\SQLEXPRESS2;Initial Catalog=RDVAPP;Integrated Security=True";
 
         [SetUp]
         public void Setup()
@@ -64,11 +64,42 @@ namespace TestProject4
             // Check if the user was added
             Assert.Greater(newUserId, 0);
         }
+        //4-test le select des utilisateurs 
+        [Test]
+        public void TestSelectUser()
+        {
+            int testUserId = 31;
+
+            DataRow? selectedUser = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Id = @Id", connection))
+                {
+                    command.Parameters.AddWithValue("@Id", testUserId);
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        selectedUser = new DataTable().NewRow();
+                        reader.Read();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            selectedUser[reader.GetName(i)] = reader.GetValue(i);
+                        }
+                    }
+                }
+            }
+
+
+            Assert.IsNotNull(selectedUser);
+        }
         //2-supprimer utilisateurs par id 
         [Test]
         public void TestDeleteUser()
         {
-            int testUserId = 1; // Replace with a valid user ID to be deleted for the test
+            int testUserId = 38; // Replace with a valid user ID to be deleted for the test
 
             int rowsAffected = 0;
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -121,37 +152,7 @@ namespace TestProject4
         }
 
 
-        //4-test le select des utilisateurs 
-        [Test]
-        public void TestSelectUser()
-        {
-            int testUserId = 1; 
-
-            DataRow? selectedUser = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE Id = @Id", connection))
-                {
-                    command.Parameters.AddWithValue("@Id", testUserId);
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.HasRows)
-                    {
-                        selectedUser = new DataTable().NewRow();
-                        reader.Read();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            selectedUser[reader.GetName(i)] = reader.GetValue(i);
-                        }
-                    }
-                }
-            }
-
-            
-            Assert.IsNotNull(selectedUser);
-        }
+        
 
     }
 }
