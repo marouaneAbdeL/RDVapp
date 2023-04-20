@@ -37,7 +37,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net6.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -45,8 +45,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
             "projectReferences": {
               "C:\\RDVapp\\RDVapp\\RDVapp.csproj": {
                 "projectPath": "C:\\RDVapp\\RDVapp\\RDVapp.csproj"
@@ -61,8 +61,8 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -79,6 +79,14 @@
             "NUnit3TestAdapter": {
               "target": "Package",
               "version": "[4.4.2, )"
+            },
+            "NuGet.Frameworks": {
+              "target": "Package",
+              "version": "[5.11.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
             },
             "coverlet.collector": {
               "target": "Package",

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDVapp", "RDVapp\RDVapp.csproj", "{82C61792-04C0-4F95-A530-72BA34507E56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject4", "TestProject4\TestProject4.csproj", "{A79CFB40-F539-4148-9845-7981B339AB88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject4", "TestProject4\TestProject4.csproj", "{A79CFB40-F539-4148-9845-7981B339AB88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -44,6 +44,7 @@
                     <wpfToolkit:TimePicker x:Name="AvailabilityEndTimePickerVendredi" HorizontalAlignment="Left" Height="23" Margin="497,213,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.052,0.726"/>
 
                     <Button x:Name="CreateUserButton" Content="Create User" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" Width="100" Click="CreateUserButton_Click" />
+                    <Button x:Name="AddSelectedButton" Content="Ajouter sélectionné" Click="AddSelectedButton_Click" HorizontalAlignment="Right" Margin="0,252,307,0" VerticalAlignment="Top" Width="100"/>
 
 
 
@@ -157,9 +158,8 @@
                     <TextBox x:Name="DurationFilterTextBox" HorizontalAlignment="Left" Height="23" Margin="11,37,0,0" VerticalAlignment="Top" Width="120"  Grid.Column="6" Grid.ColumnSpan="3"/>
                     <Button x:Name="ButtonSelectUsers" Content="Select Users" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="6" RenderTransformOrigin="0.457,3.014" Click="FilterUsersButton_Click" />
 
-                    <TextBox  x:Name="DeleteUserByIdInput" HorizontalAlignment="Left" Margin="316,116,0,0" VerticalAlignment="Top" Grid.Column="9" Height="23" Width="58" RenderTransformOrigin="0.164,-1.512"/>
-                    <Button x:Name="DeleteUserById" Content="DeleteUserById" HorizontalAlignment="Left" Margin="45,116,0,0" VerticalAlignment="Top" Width="182" RenderTransformOrigin="0.457,3.014" Grid.Column="9" Click="DeleteUserByIdButton_Click"/>
-                    <Button x:Name="AddSelectedButton" Content="Ajouter sélectionné" Click="AddSelectedButton_Click" Margin="45,34,228,316" Grid.Column="9" />
+                    <TextBox  x:Name="DeleteUserByIdInput" HorizontalAlignment="Left" Margin="312,40,0,0" VerticalAlignment="Top" Grid.Column="9" Height="23" Width="58" RenderTransformOrigin="0.164,-1.512"/>
+                    <Button x:Name="DeleteUserById" Content="DeleteUserById" HorizontalAlignment="Left" Margin="58,40,0,0" VerticalAlignment="Top" Width="182" RenderTransformOrigin="0.457,3.014" Grid.Column="9" Click="DeleteUserByIdButton_Click"/>
 
 
                     <DataGrid IsReadOnly="True" x:Name="dataGrid_filtredUsers" Margin="0,217,0,70" Grid.ColumnSpan="10" AutoGenerateColumns="False">
@@ -205,7 +205,9 @@
                         <ColumnDefinition Width="141*"/>
                         <ColumnDefinition Width="455*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Utilisateurs Selectionnes:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Grid.ColumnSpan="6" Width="150"/>
+                    <Button x:Name="RemoveSelectedButton" Content="Supprimer" Click="RemoveSelectedButton_Click" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="100" Margin="0,183,272,0" Grid.Column="9"  />
+
+                    <Label Content="Utilisateurs Selectionnes:" HorizontalAlignment="Left" Margin="10,177,0,0" VerticalAlignment="Top" Grid.ColumnSpan="6" Width="150" Grid.Column="2"/>
 
 
                     <DataGrid IsReadOnly="True" x:Name="dataGrid_selectedUsers" Margin="0,217,0,70" Grid.ColumnSpan="10" AutoGenerateColumns="False" ItemsSource="{Binding SelectedUsers}">

@@ -22,6 +22,8 @@ namespace RDVapp
     public partial class MainWindow : Window
     {
         private DataTable selectedUsersTable;
+        private List<int> addedUserIds = new List<int>();
+
 
         public MainWindow()
         {
@@ -56,7 +58,8 @@ namespace RDVapp
                         // Clear existing columns before adding new ones
                         dataGrid_Users.Columns.Clear();
 
-                        
+
+
                         dataGrid_Users.ItemsSource = dt.DefaultView;
                         dataGrid_Users.AutoGenerateColumns = false;
 
@@ -155,10 +158,35 @@ namespace RDVapp
                 }
             }
 
+            var endTimes = new List<KeyValuePair<string, Xceed.Wpf.Toolkit.TimePicker>> {
+        new KeyValuePair<string, Xceed.Wpf.Toolkit.TimePicker>("Lundi", AvailabilityEndTimePickerLundi),
+        new KeyValuePair<string, Xceed.Wpf.Toolkit.TimePicker>("Mardi", AvailabilityEndTimePickerMardi),
+        new KeyValuePair<string, Xceed.Wpf.Toolkit.TimePicker>("Mercredi", AvailabilityEndTimePickerMercredi),
+        new KeyValuePair<string, Xceed.Wpf.Toolkit.TimePicker>("Jeudi", AvailabilityEndTimePickerJeudi),
+        new KeyValuePair<string, Xceed.Wpf.Toolkit.TimePicker>("Vendredi", AvailabilityEndTimePickerVendredi)
+    };
 
+            for (int i = 0; i < days.Count; i++)
+            {
+                var day = days[i];
+                var endTime = endTimes[i];
+
+                if (day.Value.Value != null && endTime.Value.Value != null)
+                {
+                    if (day.Value.Value.Value.TimeOfDay >= endTime.Value.Value.Value.TimeOfDay)
+                    {
+                        MessageBox.Show($"{day.Key}'s start time must be less than the end time.");
+                        return false;
+                    }
+                }
+            }
 
             return true;
         }
+
+
+
+
 
         private void CreateUserButton_Click(object sender, RoutedEventArgs e)
         {
@@ -205,8 +233,13 @@ namespace RDVapp
                         command.Parameters.AddWithValue("@VendrediDuration", AvailabilityStartTimePickerVendredi.Value.HasValue && AvailabilityEndTimePickerVendredi.Value.HasValue ? (int)AvailabilityEndTimePickerVendredi.Value.Value.TimeOfDay.Subtract(AvailabilityStartTimePickerVendredi.Value.Value.TimeOfDay).TotalMinutes : (object)DBNull.Value);
 
                         command.ExecuteNonQuery();
+                        ClearInputFields();
+                        MessageBox.Show("User has been added successfully.");
                     }
+
                 }
+
+
 
 
 
@@ -217,6 +250,24 @@ namespace RDVapp
                 Console.WriteLine(ex.ToString());
                 MessageBox.Show("An error occurred while creating the user.");
             }
+        }
+
+        private void ClearInputFields()
+        {
+            FirstNameTextBox.Clear();
+            LastNameTextBox.Clear();
+            EmailTextBox.Clear();
+
+            AvailabilityStartTimePickerLundi.Value = null;
+            AvailabilityEndTimePickerLundi.Value = null;
+            AvailabilityStartTimePickerMardi.Value = null;
+            AvailabilityEndTimePickerMardi.Value = null;
+            AvailabilityStartTimePickerMercredi.Value = null;
+            AvailabilityEndTimePickerMercredi.Value = null;
+            AvailabilityStartTimePickerJeudi.Value = null;
+            AvailabilityEndTimePickerJeudi.Value = null;
+            AvailabilityStartTimePickerVendredi.Value = null;
+            AvailabilityEndTimePickerVendredi.Value = null;
         }
 
         private bool ValidateFilterInput()
@@ -251,18 +302,30 @@ namespace RDVapp
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand(@"SELECT Id, FirstName, LastName, Email, 'Lundi' AS AvailableDay, LundiStartTime, LundiEndTime FROM Users WHERE LundiDuration >= @minDuration
-                                            UNION ALL
-                                            SELECT Id, FirstName, LastName, Email, 'Mardi' AS AvailableDay, MardiStartTime, MardiEndTime FROM Users WHERE MardiDuration >= @minDuration
-                                            UNION ALL
-                                            SELECT Id, FirstName, LastName, Email, 'Mercredi' AS AvailableDay, MercrediStartTime, MercrediEndTime FROM Users WHERE MercrediDuration >= @minDuration
-                                            UNION ALL
-                                            SELECT Id, FirstName, LastName, Email, 'Jeudi' AS AvailableDay, JeudiStartTime, JeudiEndTime FROM Users WHERE JeudiDuration >= @minDuration
-                                            UNION ALL
-                                            SELECT Id, FirstName, LastName, Email, 'Vendredi' AS AvailableDay, VendrediStartTime, VendrediEndTime FROM Users WHERE VendrediDuration >= @minDuration", connection))
 
+                    string addedUserIdsCondition = addedUserIds.Count > 0
+                        ? $"AND Id IN ({string.Join(",", addedUserIds.Select((id, index) => $"@addedUserId{index}"))})"
+                        : "";
+
+                    string sql = $@"SELECT Id, FirstName, LastName, Email, 'Lundi' AS AvailableDay, LundiStartTime, LundiEndTime FROM Users WHERE LundiDuration >= @minDuration {addedUserIdsCondition}
+                            UNION ALL
+                            SELECT Id, FirstName, LastName, Email, 'Mardi' AS AvailableDay, MardiStartTime, MardiEndTime FROM Users WHERE MardiDuration >= @minDuration {addedUserIdsCondition}
+                            UNION ALL
+                            SELECT Id, FirstName, LastName, Email, 'Mercredi' AS AvailableDay, MercrediStartTime, MercrediEndTime FROM Users WHERE MercrediDuration >= @minDuration {addedUserIdsCondition}
+                            UNION ALL
+                            SELECT Id, FirstName, LastName, Email, 'Jeudi' AS AvailableDay, JeudiStartTime, JeudiEndTime FROM Users WHERE JeudiDuration >= @minDuration {addedUserIdsCondition}
+                            UNION ALL
+                            SELECT Id, FirstName, LastName, Email, 'Vendredi' AS AvailableDay, VendrediStartTime, VendrediEndTime FROM Users WHERE VendrediDuration >= @minDuration {addedUserIdsCondition}";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@minDuration", minDuration);
+
+                        for (int i = 0; i < addedUserIds.Count; i++)
+                        {
+                            command.Parameters.AddWithValue($"@addedUserId{i}", addedUserIds[i]);
+                        }
+
                         SqlDataAdapter adapter = new SqlDataAdapter(command);
                         selectedUsersTable = new DataTable();
                         adapter.Fill(selectedUsersTable);
@@ -377,23 +440,45 @@ namespace RDVapp
         }
         private void AddSelectedButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get the selected row in the dataGrid_filtredUsers
-            DataRowView selectedRow = (DataRowView)dataGrid_filtredUsers.SelectedItem;
+            DataRowView selectedRow = (DataRowView)dataGrid_Users.SelectedItem;
 
             if (selectedRow != null)
             {
-                // Copy the selected row to dataGrid_selectedUsers
-                DataRow newRow = ((DataView)dataGrid_selectedUsers.ItemsSource).Table.NewRow();
-                newRow["Id"] = selectedRow["Id"];
-                newRow["FirstName"] = selectedRow["FirstName"];
-                newRow["LastName"] = selectedRow["LastName"];
-                newRow["Email"] = selectedRow["Email"];
-                
+                int userId = int.Parse(selectedRow["Id"].ToString());
 
+                // Vérifier si l'utilisateur est déjà dans la liste addedUserIds
+                if (addedUserIds.Contains(userId))
+                {
+                    MessageBox.Show("Cet utilisateur est déjà sélectionné.");
+                }
+                else
+                {
+                    addedUserIds.Add(userId);
 
-                ((DataView)dataGrid_selectedUsers.ItemsSource).Table.Rows.Add(newRow);
+                    DataRow newRow = ((DataView)dataGrid_selectedUsers.ItemsSource).Table.NewRow();
+                    newRow["Id"] = userId;
+                    newRow["FirstName"] = selectedRow["FirstName"];
+                    newRow["LastName"] = selectedRow["LastName"];
+                    newRow["Email"] = selectedRow["Email"];
+
+                    ((DataView)dataGrid_selectedUsers.ItemsSource).Table.Rows.Add(newRow);
+                }
             }
         }
+
+        private void RemoveSelectedButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView selectedRow = (DataRowView)dataGrid_selectedUsers.SelectedItem;
+
+            if (selectedRow != null)
+            {
+                int userId = int.Parse(selectedRow["Id"].ToString());
+                addedUserIds.Remove(userId);
+
+                ((DataView)dataGrid_selectedUsers.ItemsSource).Table.Rows.Remove(selectedRow.Row);
+            }
+        }
+
 
 
     }
