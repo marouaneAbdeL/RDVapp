@@ -21,13 +21,13 @@ namespace TestProject4
             // Test data
             string testFirstName = "Marouane";
             string testLastName = "Abderrahim";
-            string testEmail = "Mar@example.com";
+            string testEmail = "ouane1@example.com";
             TimeSpan testStartTime = TimeSpan.FromHours(9);
             TimeSpan testEndTime = TimeSpan.FromHours(17);
             int testDuration = 480;
 
             // Add user to the database
-            int newUserId = -1;
+            int newUserId =115;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -68,7 +68,7 @@ namespace TestProject4
         [Test]
         public void TestSelectUser()
         {
-            int testUserId = 31;
+            int testUserId = 48;
 
             DataRow? selectedUser = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -99,7 +99,7 @@ namespace TestProject4
         [Test]
         public void TestDeleteUser()
         {
-            int testUserId = 38; // Replace with a valid user ID to be deleted for the test
+            int testUserId = 115; // Replace with a valid user ID to be deleted for the test
 
             int rowsAffected = 0;
             using (SqlConnection connection = new SqlConnection(_connectionString))
